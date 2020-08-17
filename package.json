@@ -19,6 +19,6 @@
     "npm-pack-zip": "^1.2.7"
   },
 
-  "files": [ "Cloud-build.yaml" ]
+  "files": [ "Cloud-build.yaml" , "sample.properties"]
 
 }
