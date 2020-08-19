@@ -29,7 +29,7 @@ pipeline {
            echo determineRepoURL()
            echo "${buildnumber}"
            echo "${jobName}"
-           echo "${branchName}"
+           echo "${BRANCH_NAME}"
        
     }
 	}
