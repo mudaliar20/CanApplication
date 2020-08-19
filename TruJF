@@ -8,7 +8,7 @@ pipeline {
   environment {
         buildnumber = "${BUILD_NUMBER}"
         jobName    = "${env.JOB_NAME}"
-        branchName = "${env.BRANCH_NAME}"
+        branchName = "${BRANCH_NAME}"
        // repoName   = 'scm + getUserRemoteConfigs()[0] + getUrl() + tokenize('/')[3] + split("\\.")[0]'
     }
   stages{
@@ -29,7 +29,7 @@ pipeline {
            echo determineRepoURL()
            echo "${buildnumber}"
            echo "${jobName}"
-           echo "${BRANCH_NAME}"
+           echo "${branchName}"
        
     }
 	}
