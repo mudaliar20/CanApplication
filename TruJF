@@ -29,7 +29,7 @@ pipeline {
            echo determineRepoURL()
            echo "${buildnumber}"
            echo "${jobName}"
-           echo "${branchName}"
+           echo getGitBranchName()
        
     }
 	}
@@ -41,5 +41,8 @@ String determineRepoName() {
 }
 String determineRepoURL() {
     return scm.getUserRemoteConfigs()[0].getUrl()
+}
+def getGitBranchName() {
+    return scm.branches[0].name
 }
 
