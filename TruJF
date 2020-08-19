@@ -33,8 +33,7 @@ pipeline {
            echo "${buildnumber}"
            echo "${jobName}"
            echo getGitBranchName()
-           echo "${env.BRANCH_NAME}"
-       
+           echo env.BRANCH_NAME       
     }
 	}
   }
