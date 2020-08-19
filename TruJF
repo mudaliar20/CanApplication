@@ -9,9 +9,20 @@ pipeline {
         buildnumber = "${BUILD_NUMBER}"
         jobName    = "${env.JOB_NAME}"
         branchName = "${BRANCH_NAME}"
+        GIT_COMMIT_REV = ''
        // repoName   = 'scm + getUserRemoteConfigs()[0] + getUrl() + tokenize('/')[3] + split("\\.")[0]'
     }
   stages{
+  stages {
+    stage('Configure') {
+      steps {
+        script {    
+          GIT_COMMIT_REV = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+          echo "${GIT_COMMIT_REV}"
+        }
+      }
+    }
+  }
   
      
     stage('SCM Checkout'){
