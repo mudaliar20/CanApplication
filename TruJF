@@ -35,15 +35,16 @@ pipeline {
     }
 	}
   }
-
-}
-}
-stage('get vriables'){
+  stage('get vriables'){
 steps{
 sh 'commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')'
 sh 'echo ${commitId}'
 }
 }
+
+}
+}
+
 
 
 String determineRepoName() {
