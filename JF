@@ -8,6 +8,7 @@ pipeline {
         buildnumber = "${BUILD_NUMBER}"
         jobName    = "${env.JOB_NAME}"
         COMMIT_ID= "${sh(returnStdout: true, script: 'git log -n 1')}"
+        GIT_BRANCH = "${sh(script:'git name-rev --name HEAD', returnStdout: true)}".substring("${sh(script:'git name-rev --name HEAD', returnStdout: true)}".lastIndexof('/') + 1, "${sh(script:'git name-rev --name HEAD', returnStdout: true)}".length())
        
     }
   stages{
@@ -23,6 +24,7 @@ pipeline {
     stage('Test') {
 	 steps{
 	     sh ' rm -rf *.properties'
+             sh "echo ${env.GIT_BRANCH}"
 	    // sh  "echo demo=${BUILD_NUMBER} >> ${env.JOB_NAME}-${env.BUILD_NUMBER}.properties"
         // sh "echo  demo1=${env.WORKSPACE} >> ${env.JOB_NAME}-${env.BUILD_NUMBER}.properties"
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
