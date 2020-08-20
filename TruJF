@@ -25,16 +25,31 @@ pipeline {
 	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
 	  env.GIT_COMMIT = scmVars.GIT_COMMIT
          
-          echo "GIT_COMMIT=${env.GIT_COMMIT}" >> variables.txt
-           echo "${buildnumber}" >>  variables.txt
-           echo "${jobName}"  >> variables.txt
-         // echo getGitBranchName() >> variables.txt
+          echo "GIT_COMMIT=${env.GIT_COMMIT}" 
+           echo "${buildnumber}" 
+           echo "${jobName}" 
+         // echo getGitBranchName() 
           echo env.BRANCH_NAME  >>  variables.txt
-         // echo determineRepoName "echo determineRepoName()" >> variables.txt
-         // echo determineRepoURL "echo determineRepoURL()" >> variables.txt
+         // echo determineRepoName "echo determineRepoName()" 
+         // echo determineRepoURL "echo determineRepoURL()" 
     }
 	}
   }
+  
+  stage('Test') {
+	 steps{
+	     sh ' rm -rf *.properties'
+	    // sh  "echo demo=${BUILD_NUMBER} >> ${env.JOB_NAME}-${env.BUILD_NUMBER}.properties"
+        // sh "echo  demo1=${env.WORKSPACE} >> ${env.JOB_NAME}-${env.BUILD_NUMBER}.properties"
+         sh  '''
+         "echo pipelineName=${jobName} >> variable.properties"
+         "echo buildNumber=${buildnumber} >> variable.properties"
+         "echo buildNumber=${env.BRANCH_NAME} >> variable.properties"
+         "echo determineRepoName='echo determineRepoName()' >> variable.properties"
+         "echo determineRepourl='echo determineRepoURL()' >> variable.properties"
+'''
+    }
+     }
 }
 }
 
