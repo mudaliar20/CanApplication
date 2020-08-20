@@ -7,11 +7,7 @@ pipeline {
   environment {
         buildnumber = "${BUILD_NUMBER}"
         jobName    = "${env.JOB_NAME}"
-        FULL_PATH_BRANCH = "${sh(script:'git name-rev --name HEAD', returnStdout: true)}"
-GIT_BRANCH = FULL_PATH_BRANCH.substring(FULL_PATH_BRANCH.lastIndexof('/') + 1, FULL_PATH_BRANCH.length())
-COMMIT_ID= "${sh(returnStdout: true, script: 'git log -n 1')}"
-GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
-        
+       
     }
   stages{
      
