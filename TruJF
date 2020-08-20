@@ -9,8 +9,6 @@ pipeline {
         buildnumber = "${BUILD_NUMBER}"
         jobName    = "${env.JOB_NAME}"
         branchName = "${BRANCH_NAME}"
-        GIT_COMMIT_REV = ''
-       // repoName   = 'scm + getUserRemoteConfigs()[0] + getUrl() + tokenize('/')[3] + split("\\.")[0]'
     }
   stages{
 
@@ -27,11 +25,13 @@ pipeline {
 	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
 	  env.GIT_COMMIT = scmVars.GIT_COMMIT
          
-          echo "GIT_COMMIT=${env.GIT_COMMIT}"
-           echo "${buildnumber}"
-           echo "${jobName}"
-           echo getGitBranchName()
-           echo env.BRANCH_NAME       
+          echo "GIT_COMMIT=${env.GIT_COMMIT}" >> variables.txt
+           echo "${buildnumber}" >>  variables.txt
+           echo "${jobName}"  >> variables.txt
+          echo GitBranch " echo getGitBranchName() " >> variables.txt
+          echo env.BRANCH_NAME  >>  variables.txt
+          echo determineRepoName "echo determineRepoName()" >> variables.txt
+          echo determineRepoURL "echo determineRepoURL()" >> variables.txt
     }
 	}
   }
