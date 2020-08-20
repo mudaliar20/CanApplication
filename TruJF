@@ -28,10 +28,10 @@ pipeline {
           echo "GIT_COMMIT=${env.GIT_COMMIT}" >> variables.txt
            echo "${buildnumber}" >>  variables.txt
            echo "${jobName}"  >> variables.txt
-          echo GitBranch " echo getGitBranchName() " >> variables.txt
+          echo GitBranch " ${echo getGitBranchName()}" >> variables.txt
           echo env.BRANCH_NAME  >>  variables.txt
-          echo determineRepoName "echo determineRepoName()" >> variables.txt
-          echo determineRepoURL "echo determineRepoURL()" >> variables.txt
+         // echo determineRepoName "echo determineRepoName()" >> variables.txt
+         // echo determineRepoURL "echo determineRepoURL()" >> variables.txt
     }
 	}
   }
