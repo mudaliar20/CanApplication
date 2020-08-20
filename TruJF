@@ -31,6 +31,8 @@ pipeline {
            repoName=$(echo determineRepoName())
            echo "${repoName}"
            echo determineRepoURL()
+           result=$(determineRepoName)
+           echo "${result}"
            echo "${buildnumber}"
            echo "${jobName}"
            echo getGitBranchName()
@@ -40,9 +42,13 @@ pipeline {
   }
 }
 }
-String determineRepoName() {
-    return scm.getUserRemoteConfigs()[0].getUrl().tokenize('/')[3].split("\\.")[0]
+determineRepoName() {
+   value=scm.getUserRemoteConfigs()[0].getUrl().tokenize('/')[3].split("\\.")[0]
+    echo $value
 }
+//String determineRepoName() {
+    //return scm.getUserRemoteConfigs()[0].getUrl().tokenize('/')[3].split("\\.")[0]
+//}
 String determineRepoURL() {
     return scm.getUserRemoteConfigs()[0].getUrl()
 }
