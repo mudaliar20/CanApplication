@@ -29,7 +29,7 @@ pipeline {
            echo "${buildnumber}" 
            echo "${jobName}" 
          // echo getGitBranchName() 
-          echo env.BRANCH_NAME  >>  variables.txt
+          echo env.BRANCH_NAME 
          // echo determineRepoName "echo determineRepoName()" 
          // echo determineRepoURL "echo determineRepoURL()" 
     }
