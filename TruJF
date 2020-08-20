@@ -30,8 +30,8 @@ pipeline {
            echo "${jobName}" 
          // echo getGitBranchName() 
         //  echo env.BRANCH_NAME 
-          echo determineRepoName 
-         echo determineRepoURL 
+          echo determineRepoName()
+         echo determineRepoURL()
     }
 	}
   }
