@@ -26,8 +26,8 @@ pipeline {
       ])
 	    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
 	  env.GIT_COMMIT = scmVars.GIT_COMMIT
-         echo "env.GIT_COMMIT"
-          echo "${env.GIT_COMMIT}"
+         
+          echo "GIT_COMMIT=${env.GIT_COMMIT}"
            echo determineRepoName()
            echo determineRepoURL()
            echo "${buildnumber}"
