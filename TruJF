@@ -29,9 +29,9 @@ pipeline {
            echo "${buildnumber}" 
            echo "${jobName}" 
          // echo getGitBranchName() 
-          echo env.BRANCH_NAME 
-         // echo determineRepoName "echo determineRepoName()" 
-         // echo determineRepoURL "echo determineRepoURL()" 
+        //  echo env.BRANCH_NAME 
+          echo determineRepoName 
+         echo determineRepoURL 
     }
 	}
   }
@@ -47,7 +47,7 @@ pipeline {
          "echo pipelineName=${jobName} >> variable.properties"
          "echo buildNumber=${buildnumber} >> variable.properties"
          "echo buildNumber=${env.BRANCH_NAME} >> variable.properties"
-         "echo determineRepoName='echo determineRepoName()' >> variable.properties"
+         "echo determineRepoName=`echo determineRepoName()` >> variable.properties"
          "echo determineRepourl='echo determineRepoURL()' >> variable.properties"
 '''
     }
