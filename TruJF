@@ -28,8 +28,8 @@ pipeline {
 	  env.GIT_COMMIT = scmVars.GIT_COMMIT
          
           echo "GIT_COMMIT=${env.GIT_COMMIT}"
-           repoName=echo determineRepoName()
-           echo "RepoName=${repoName}"
+           repoName=$(echo determineRepoName())
+           echo "${repoName}"
            echo determineRepoURL()
            echo "${buildnumber}"
            echo "${jobName}"
