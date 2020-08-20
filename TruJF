@@ -35,23 +35,7 @@ pipeline {
     }
 	}
   }
-  
-  stage('Test') {
-	 steps{
-	     sh ' rm -rf *.properties'
-             
-	    // sh  "echo demo=${BUILD_NUMBER} >> ${env.JOB_NAME}-${env.BUILD_NUMBER}.properties"
-        // sh "echo  demo1=${env.WORKSPACE} >> ${env.JOB_NAME}-${env.BUILD_NUMBER}.properties"
-         sh  '''
-         touch variable.properties
-         "echo pipelineName=${jobName} >> variable.properties"
-         "echo buildNumber=${buildnumber} >> variable.properties"
-         "echo buildNumber=${env.BRANCH_NAME} >> variable.properties"
-         "echo determineRepoName=`echo determineRepoName()` >> variable.properties"
-         "echo determineRepourl='echo determineRepoURL()' >> variable.properties"
-'''
-    }
-     }
+
 }
 }
 
