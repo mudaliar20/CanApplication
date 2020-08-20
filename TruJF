@@ -35,17 +35,12 @@ pipeline {
     }
 	}
   }
-  stage('get vriables'){
-steps{
-sh 'commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')'
-sh 'echo ${commitId}'
-}
-}
 
 }
 }
 
-
+BUILD_FULL = sh 'commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')' == 0
+echo "Build full flag: ${BUILD_FULL}"
 
 String determineRepoName() {
     return scm.getUserRemoteConfigs()[0].getUrl().tokenize('/')[3].split("\\.")[0]
