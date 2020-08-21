@@ -57,13 +57,20 @@ pipeline {
 	 script{
 	 repoName = determineRepoName()
          branchName = getGitBranchName() 
-         shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+         def scmVars = checkout([
+        $class: 'GitSCM',
+        ...
+      ])
+      // Displaying the variables saving it as environment variable
+      env.GIT_COMMIT = scmVars.GIT_COMMIT
+      echo "env.GIT_COMMIT"
+      echo "${env.GIT_COMMIT}"
 	 }
 	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
 sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
 sh "echo repoName=$repoName >> variable.properties"
-sh "echo commitId=${shortCommit} >> variable.properties"
+sh "echo commitId=${env.GIT_COMMIT} >> variable.properties"
 sh "echo BlackDuckProject=Canada-Application >> variable.properties"
 sh "echo BlackDuckVersion=${env.BUILD_NUMBER} >> variable.properties"
 sh "echo ImageID=sha256:70099e509feb7f4ccfd7629deb1a028b704aac49fec3d56abe82b66c7a2cc4eb >> variable.properties"
