@@ -17,7 +17,7 @@ pipeline {
     stage('SCM Checkout'){
 	steps {
        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
-        gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 
     }
 	}
