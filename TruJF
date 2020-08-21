@@ -86,7 +86,7 @@ pipeline {
 	 }
          sh ' rm -rf *.properties'
          sh '''
-        IMAGEID="$(grep "sha256:" Samplefile.txt | cut -c 59-130 | awk '{$1=$1;print}')"
+        IMAGEID="$(grep "sha256:" demo.txt | cut -c 59-130 | awk '{$1=$1;print}')"
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
          IMAGENAME="$(grep "Successfully tagged" SomeFile.txt | cut -d' ' -f 3)"
          echo "TwislockImageName=${IMAGENAME}" >> variable.properties
