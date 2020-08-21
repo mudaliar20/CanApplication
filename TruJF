@@ -88,7 +88,7 @@ pipeline {
 	 }
          sh '''
          IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"
-         echo "TwistlockImageID=${IMAGEID}" >> variable.propertie
+         echo TwistlockImageID=${IMAGEID} >> variable.properties
          '''
         	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
