@@ -57,11 +57,14 @@ pipeline {
 	 script{
 	 repoName = determineRepoName()
          branchName = getGitBranchName() 
+         repoURL = determineRepoURL()
 	 }
 	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
 sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
 sh "echo repoName=$repoName >> variable.properties"
+sh "echo repoURL=$repoURL >> variable.properties"
+
     }
      }
      
@@ -87,4 +90,7 @@ String determineRepoURL() {
 }
 String getGitBranchName() {
     return scm.branches[0].name.tokenize("*")[0].split("\\/")[1]
+}
+String determineRepoURL() {
+    return scm.getUserRemoteConfigs()[0].getUrl()
 }
