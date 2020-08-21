@@ -40,7 +40,7 @@ pipeline {
     } 
 	}
         
-     stage('Black duck Scan'){
+    /*  stage('Black duck Scan'){
 	steps {
        synopsys_detect detectProperties: '''
        --detect.project.version.name=75
@@ -49,7 +49,7 @@ pipeline {
        --detect.report.timeout=30000
        ''', returnStatus: true
     }
-	}
+	} */
 
     
     stage('Build Docker Image'){
@@ -58,13 +58,13 @@ pipeline {
     }
 	}
         
-        stage('twislock scan'){
+       /*  stage('twislock scan'){
 	    steps{
 	    sh '''
 	    /home/ubuntu/twistcli images scan --address https://us-west1.cloud.twistlock.com/us-3-159244848 -u 497d19ff-6c5c-431a-bf94-3e17f628938f -p 0pl+T/QwHVpMNy/CJVzkKR+cHSs= 3.128.135.88:8083/petclinic:${BUILD_NUMBER}
 	    '''
 	}
-	}
+	} */
     
     stage('Push Docker Image'){
 	steps{
@@ -88,7 +88,7 @@ pipeline {
 	 }
          sh '''
          IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"
-         echo TwistlockImageID=${IMAGEID} >> variable.properties
+         echo "${IMAGEID}"
          '''
         	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
