@@ -72,7 +72,7 @@ pipeline {
 	     PORT="$(grep "Step 5/5" ${WORKSPACE}/SomeFile.txt | sed 's/.* ://' |  sed -e 's/^[[:space:]]*//')"
         echo "${PORT}"
         docker login -u admin -p admin123 3.128.135.88:8083
-        docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER}
+        docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER} .>&1 tee docker.txt
         '''
      }
 	 }
@@ -86,6 +86,10 @@ pipeline {
          branchName = getGitBranchName() 
          repoURL = determineRepoURL()
 	 }
+         sh '''
+	     IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"
+         echo TwistlockImageID=${IMAGEID} >> variable.properties
+        '''
 	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
 sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
