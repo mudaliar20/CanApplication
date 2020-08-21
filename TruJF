@@ -61,7 +61,7 @@ pipeline {
        stage('twislock scan'){
 	    steps{
 	    sh '''
-	    /home/ubuntu/twistcli images scan --address https://us-west1.cloud.twistlock.com/us-3-159244848 -u 497d19ff-6c5c-431a-bf94-3e17f628938f -p 0pl+T/QwHVpMNy/CJVzkKR+cHSs= 3.128.135.88:8083/petclinic:${BUILD_NUMBER}
+	    /home/ubuntu/twistcli images scan --address https://us-west1.cloud.twistlock.com/us-3-159244848 -u 497d19ff-6c5c-431a-bf94-3e17f628938f -p 0pl+T/QwHVpMNy/CJVzkKR+cHSs= 3.128.135.88:8083/petclinic:${BUILD_NUMBER} >&1 | tee demo.txt
 	    '''
 	}
 	} 
@@ -86,7 +86,7 @@ pipeline {
 	 }
          sh ' rm -rf *.properties'
          sh '''
-        IMAGEID="$(grep "Successfully built" SomeFile.txt | cut -d' ' -f 3)"
+        IMAGEID="$(grep "sha256:" Samplefile.txt | cut -c 59-130 | awk '{$1=$1;print}')"
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
          IMAGENAME="$(grep "Successfully tagged" SomeFile.txt | cut -d' ' -f 3)"
          echo "TwislockImageName=${IMAGENAME}" >> variable.properties
