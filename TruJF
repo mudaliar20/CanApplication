@@ -43,7 +43,7 @@ pipeline {
      stage('Black duck Scan'){
 	steps {
        synopsys_detect detectProperties: '''
-       --detect.project.version.name=75
+       --detect.project.version.name=${BUILD_NUMBER}
        --detect.project.name="Canada-Application"
        --detect.source.path=${WORKSPACE}
        --detect.report.timeout=30000
