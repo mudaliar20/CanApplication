@@ -57,13 +57,6 @@ pipeline {
 	 script{
 	 repoName = determineRepoName()
          branchName = getGitBranchName() 
-         def scmVars = checkout([
-        $class: 'GitSCM'
-      ])
-      // Displaying the variables saving it as environment variable
-      env.GIT_COMMIT = scmVars.GIT_COMMIT
-      echo "env.GIT_COMMIT"
-      echo "${env.GIT_COMMIT}"
 	 }
 	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
