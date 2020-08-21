@@ -19,8 +19,7 @@ pipeline {
 	steps {
         script {
       def scmVars = checkout([
-        $class: 'GitSCM',
-        ...
+        $class: 'GitSCM'
       ])
       echo "env.GIT_COMMIT"
       echo "${env.GIT_COMMIT}"
