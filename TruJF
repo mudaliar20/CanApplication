@@ -58,8 +58,7 @@ pipeline {
 	 repoName = determineRepoName()
          branchName = getGitBranchName() 
          def scmVars = checkout([
-        $class: 'GitSCM',
-        ...
+        $class: 'GitSCM'
       ])
       // Displaying the variables saving it as environment variable
       env.GIT_COMMIT = scmVars.GIT_COMMIT
