@@ -87,7 +87,9 @@ pipeline {
          sh ' rm -rf *.properties'
          sh '''
         IMAGEID="$(grep "Successfully built" SomeFile.txt | cut -d' ' -f 3)"
+        IMAGENAME="$(grep ""Successfully tagged" SomeFile.txt | cut -d' ' -f 3)"
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
+         echo "TwislockImageName=${IMAGENAME}" >> variable.properties
          '''
         	     
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
