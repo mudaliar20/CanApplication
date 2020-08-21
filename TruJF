@@ -72,7 +72,7 @@ pipeline {
 	     PORT="$(grep "Step 5/5" ${WORKSPACE}/SomeFile.txt | sed 's/.* ://' |  sed -e 's/^[[:space:]]*//')"
         echo "${PORT}"
         docker login -u admin -p admin123 3.128.135.88:8083
-        docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER} . >&1 tee docker.txt
+        docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER} >&1 tee docker.txt
         '''
      }
 	 }
