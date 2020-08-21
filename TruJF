@@ -39,13 +39,31 @@ pipeline {
       
     } 
 	}
-    
+        
+     stage('Black duck Scan'){
+	steps {
+       synopsys_detect detectProperties: '''
+       --detect.project.version.name=75
+       --detect.project.name="Canada-Application"
+       --detect.source.path=${WORKSPACE}
+       --detect.report.timeout=30000
+       ''', returnStatus: true
+    }
+	}
 
     
     stage('Build Docker Image'){
 	steps{
         sh 'docker build -t 3.128.135.88:8083/petclinic:${BUILD_NUMBER} . >&1 | tee SomeFile.txt '
     }
+	}
+        
+        stage('twislock scan'){
+	    steps{
+	    sh '''
+	    /home/ubuntu/twistcli images scan --address https://us-west1.cloud.twistlock.com/us-3-159244848 -u 497d19ff-6c5c-431a-bf94-3e17f628938f -p 0pl+T/QwHVpMNy/CJVzkKR+cHSs= 3.128.135.88:8083/petclinic:${BUILD_NUMBER}
+	    '''
+	}
 	}
     
     stage('Push Docker Image'){
