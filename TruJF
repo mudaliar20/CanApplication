@@ -1,4 +1,5 @@
 def repoName
+def gitCommit
 pipeline {
   agent any
   tools {
@@ -16,6 +17,8 @@ pipeline {
     stage('SCM Checkout'){
 	steps {
        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
+        gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                
     }
 	}
     
@@ -54,11 +57,17 @@ pipeline {
 	 steps{
 	 script{
 	 repoName = determineRepoName()
+         branchName = getGitBranchName()
+         commitId = 
 	 }
 	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
 sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
 sh "echo repoName=$repoName >> variable.properties"
+sh "echo commitId=${gitCommit} >> variable.properties"
+sh "echo BlackDuckProject=Canada-Application >> variable.properties"
+sh "echo BlackDuckVersion=${env.BUILD_NUMBER} >> variable.properties"
+sh "echo ImageID=sha256:70099e509feb7f4ccfd7629deb1a028b704aac49fec3d56abe82b66c7a2cc4eb >> variable.properties"
     }
      }
      
