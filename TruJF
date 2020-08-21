@@ -1,5 +1,4 @@
 def repoName
-def gitCommit
 pipeline {
   agent any
   tools {
