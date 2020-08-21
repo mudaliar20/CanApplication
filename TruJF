@@ -69,8 +69,8 @@ pipeline {
     stage('Push Docker Image'){
 	steps{
 	    sh '''
-	     PORT="$(grep "Step 5/5" ${WORKSPACE}/SomeFile.txt | sed 's/.* ://' |  sed -e 's/^[[:space:]]*//')"
-        echo "${PORT}"
+	     //PORT="$(ep "Successfully built" build.txt | cut -d' ' -f 3)"
+       // echo "${PORT}"
         docker login -u admin -p admin123 3.128.135.88:8083
         '''
          sh 'docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER} >&1 | tee docker.txt'
@@ -88,7 +88,8 @@ pipeline {
 	 }
          sh ' rm -rf *.properties'
          sh '''
-         IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"
+        // IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"
+        IMAGEID="$(grep "Successfully built" SomeFile.txt | cut -d' ' -f 3)"
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
          '''
         	     
