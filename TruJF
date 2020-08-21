@@ -57,8 +57,7 @@ pipeline {
 	 steps{
 	 script{
 	 repoName = determineRepoName()
-         branchName = getGitBranchName()
-         commitId = 
+         branchName = getGitBranchName() 
 	 }
 	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
