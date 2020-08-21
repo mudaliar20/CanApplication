@@ -1,4 +1,4 @@
-
+def repoName
 pipeline {
   agent any
   tools {
@@ -8,39 +8,73 @@ pipeline {
   environment {
         buildnumber = "${BUILD_NUMBER}"
         jobName    = "${env.JOB_NAME}"
-        branchName = "${BRANCH_NAME}"
+        
+        
     }
   stages{
-
- 
-  
      
     stage('SCM Checkout'){
 	steps {
-         script {
-      // Checkout the repository and save the resulting metadata
-      def scmVars = checkout([
-        $class: 'GitSCM'
-      ])
-	    //checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
-	  env.GIT_COMMIT = scmVars.GIT_COMMIT
-         
-          echo "GIT_COMMIT=${env.GIT_COMMIT}" 
-           echo "${buildnumber}" 
-           echo "${jobName}" 
-         // echo getGitBranchName() 
-        //  echo env.BRANCH_NAME 
-          echo determineRepoName()
-         echo determineRepoURL()
+       checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
     }
 	}
-  }
+    
+    stage(" Maven Clean Package"){
+	steps{
+     // def mavenHome =  tool name: "maven3.6.3", type: "maven"
+     // def mavenCMD = "${mavenHome}/bin/mvn"
+      sh "mvn clean package -DskipTests"
+      sh 'npm install'
+      
+    } 
+	}
+    
+
+    
+    stage('Build Docker Image'){
+	steps{
+        sh 'docker build -t 3.128.135.88:8083/petclinic:${BUILD_NUMBER} . >&1 | tee SomeFile.txt '
+    }
+	}
+    
+    stage('Push Docker Image'){
+	steps{
+	    sh '''
+	     PORT="$(grep "Step 5/5" ${WORKSPACE}/SomeFile.txt | sed 's/.* ://' |  sed -e 's/^[[:space:]]*//')"
+        echo "${PORT}"
+        docker login -u admin -p admin123 3.128.135.88:8083
+        docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER}
+        '''
+     }
+	 }
+     
+  
+	
+     stage('Test') {
+	 steps{
+	 script{
+	 repoName = determineRepoName()
+	 }
+	     sh ' rm -rf *.properties'
+         sh "echo jobName=${env.JOB_NAME} >> variable.properties"
+sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
+sh "echo repoName=$repoName >> variable.properties"
+    }
+     }
+     
+    
+}
+  
+    post {
+        always {
+            
+            archiveArtifacts artifacts: "variable.properties"
+        }
+    } 
 
 }
-}
 
-BUILD_FULL = sh 'commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')' == 0
-echo "Build full flag: ${BUILD_FULL}"
+
 
 String determineRepoName() {
     return scm.getUserRemoteConfigs()[0].getUrl().tokenize('/')[3].split("\\.")[0]
@@ -51,4 +85,3 @@ String determineRepoURL() {
 String getGitBranchName() {
     return scm.branches[0].name.tokenize("*")[0].split("\\/")[1]
 }
-
