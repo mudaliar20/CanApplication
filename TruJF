@@ -86,8 +86,10 @@ pipeline {
          branchName = getGitBranchName() 
          repoURL = determineRepoURL()
 	 }
-         sh 'IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"'
-         sh "echo TwistlockImageID=${IMAGEID} >> variable.properties"
+         sh '''
+         IMAGEID="$(grep "sha256:" docker.txt | cut -c 13-84 | awk '{$1=$1;print}')"
+         echo "TwistlockImageID=${IMAGEID}" >> variable.propertie
+         '''
         	     sh ' rm -rf *.properties'
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
 sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
