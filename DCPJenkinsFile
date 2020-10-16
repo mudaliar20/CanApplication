@@ -100,6 +100,8 @@ sh "echo repoURL=$repoURL >> variable.properties"
 sh "echo commitId=${env.GIT_COMMIT} >> variable.properties"
 sh "echo BlackDuckProject=Canada-Application >> variable.properties"
 sh "echo BlackDuckVersion=${env.BUILD_NUMBER} >> variable.properties"
+sh "echo ApplicationName=PetClinicDemoNexus >> variable.properties"
+sh "echo ApplicationProcess=DeployApplication >> variable.properties"
 
 
 
