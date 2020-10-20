@@ -102,6 +102,7 @@ sh "echo BlackDuckProject=Canada-Application >> variable.properties"
 sh "echo BlackDuckVersion=${env.BUILD_NUMBER} >> variable.properties"
 sh "echo ApplicationName=PetClinicDemoNexus >> variable.properties"
 sh "echo ApplicationProcess=DeployApplication >> variable.properties"
+sh "echo ImgName=3.128.135.88:8083/petclinic:1 >> variable.properties"
 
 
 
