@@ -47,6 +47,7 @@ pipeline {
        --detect.project.name="Canada-Application"
        --detect.source.path=${WORKSPACE}
        --detect.report.timeout=30000
+       --detect.project.tags=Internal,Nexus,DCPDemo
        ''', returnStatus: true
     }
 	} 
