@@ -91,6 +91,14 @@ pipeline {
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
          IMAGENAME="$(grep "Successfully tagged" SomeFile.txt | cut -d' ' -f 3)"
          echo "TwislockImageName=${IMAGENAME}" >> variable.properties
+         if [[ $repoURL == *.git ]]
+then
+repoURL=$repoURL
+echo $repoURL
+else
+repoURL+=".git"
+echo $repoURL
+fi
          '''
         	     
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
