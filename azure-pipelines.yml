@@ -16,5 +16,5 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    docker login -u dcp -p J9cu5w8NE https://registry.kaiburr.com
+    docker pull mudaliar20/petclinic:2.1
   displayName: 'npm install and build'
