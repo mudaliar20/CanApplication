@@ -16,5 +16,5 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    docker login -u admin -p admin123 3.128.135.88:8083
+    docker login -u dcp -p J9cu5w8NE https://registry.kaiburr.com
   displayName: 'npm install and build'
