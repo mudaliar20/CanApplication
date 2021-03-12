@@ -55,7 +55,7 @@ pipeline {
     
     stage('Build Docker Image'){
 	steps{
-        sh 'docker build -t 3.12.153.147:8081/petclinic:${BUILD_NUMBER} . >&1 | tee SomeFile.txt '
+        sh 'docker build -t 3.12.153.147:8083/petclinic:${BUILD_NUMBER} . >&1 | tee SomeFile.txt '
     }
 	}
         
@@ -70,9 +70,9 @@ pipeline {
     stage('Push Docker Image'){
 	steps{
 	    sh '''
-        docker login -u admin -p admin123 3.12.153.147:8081
+        docker login -u admin -p admin123 3.12.153.147:8083
         '''
-         sh 'docker push 3.128.135.88:8083/petclinic:${BUILD_NUMBER} >&1 | tee docker.txt'
+         sh 'docker push 3.12.153.147:8083/petclinic:${BUILD_NUMBER} >&1 | tee docker.txt'
      }
 	 }
      
