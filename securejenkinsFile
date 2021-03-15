@@ -34,7 +34,7 @@ pipeline {
 	steps{
      // def mavenHome =  tool name: "maven3.6.3", type: "maven"
      // def mavenCMD = "${mavenHome}/bin/mvn"
-      sh "mvn clean"
+      sh "mvn clean package -DskipTests"
       
     } 
 	}
@@ -87,6 +87,9 @@ sh "echo repoName=$repoName >> variable.properties"
 sh "echo branchName=$branchName >> variable.properties"
 sh "echo repoURL=$repoURL >> variable.properties"
 sh "echo commitId=${env.GIT_COMMIT} >> variable.properties"
+
+
+
     }
      }
      
