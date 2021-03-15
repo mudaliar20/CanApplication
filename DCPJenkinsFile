@@ -90,7 +90,7 @@ pipeline {
         IMAGEID="$(grep "sha256:" demo.txt | cut -c 59-129 | awk '{$1=$1;print}')"
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
          IMAGENAME="$(grep "Successfully tagged" SomeFile.txt | cut -d' ' -f 3)"
-         echo "TwislockImageName=${IMAGENAME}" >> variable.properties
+         echo "TwislockImageName=http://${IMAGENAME}" >> variable.properties
          '''
         	     
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
