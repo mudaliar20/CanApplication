@@ -25,8 +25,7 @@ pipeline {
       echo "${env.GIT_COMMIT}"
     }
        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GithubCredentails', url: 'https://github.com/mudaliar20/CanApplication.git']]])
-        def response = sh(script: "curl --location --request GET 'https://sonarqube.kaiburr.com:9000/api/measures/component?metricKeys=ncloc,complexity,violations,bugs,coverage,lines,statements,functions,classes,files,code_smells,cognitive_complexity,comment_lines,duplicated_lines,sqale_rating&componentKey=petclinic' \
---header 'Authorization: Basic MDRkNjI4NjUwYjA1YjIzZDZkMDk5YjVjZTFhMmQxYjdjOTQwNDY5ZDo='", returnStdout: true)
+        def response = sh(script: "curl --location --request GET 'https://sonarqube.kaiburr.com:9000/api/measures/component?metricKeys=ncloc,complexity,violations,bugs,coverage,lines,statements,functions,classes,files,code_smells,cognitive_complexity,comment_lines,duplicated_lines,sqale_rating&componentKey=petclinic' --header 'Authorization: Basic MDRkNjI4NjUwYjA1YjIzZDZkMDk5YjVjZTFhMmQxYjdjOTQwNDY5ZDo='", returnStdout: true)
       echo '=========================Response===================' + response           
     }
 	}
