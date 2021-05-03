@@ -40,7 +40,7 @@ pipeline {
     } 
 	}
         
-     stage('Black duck Scan'){
+   /*  stage('Black duck Scan'){
 	steps {
        synopsys_detect detectProperties: '''
        --detect.project.version.name=${BUILD_NUMBER}
@@ -50,7 +50,7 @@ pipeline {
        --detect.project.tags=Internal,Nexus,DCPDemo
        ''', returnStatus: true
     }
-	} 
+	} */
 
     
     stage('Build Docker Image'){
@@ -86,12 +86,12 @@ pipeline {
          repoURL = determineRepoURL()
 	 }
          sh ' rm -rf *.properties'
-         sh '''
+       /*  sh '''
         IMAGEID="$(grep "sha256:" demo.txt | cut -c 59-129 | awk '{$1=$1;print}')"
          echo "TwislockImageID=${IMAGEID}" >> variable.properties
          IMAGENAME="$(grep "Successfully tagged" SomeFile.txt | cut -d' ' -f 3)"
          echo "TwislockImageName=http://${IMAGENAME}" >> variable.properties
-         '''
+         '''*/
         	     
          sh "echo jobName=${env.JOB_NAME} >> variable.properties"
 sh "echo buildNumber=${env.BUILD_NUMBER} >> variable.properties"
