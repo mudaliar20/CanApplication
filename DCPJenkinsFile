@@ -55,24 +55,24 @@ pipeline {
     
     stage('Build Docker Image'){
 	steps{
-        sh 'docker build -t 3.12.153.147:8083/petclinic:${BUILD_NUMBER} . >&1 | tee SomeFile.txt '
+        sh 'docker build -t 13.59.106.246:8083/petclinic:${BUILD_NUMBER} . >&1 | tee SomeFile.txt '
     }
 	}
         
-       stage('twislock scan'){
+      /* stage('twislock scan'){
 	    steps{
 	    sh '''
 	    /home/ubuntu/twistcli images scan --address https://us-east1.cloud.twistlock.com/us-2-158290607 -u 4c3bdea1-9313-410a-b0de-e70e56194ab0 -p CUuLnsgLwX4+S7fmQxqVuBO3u3k= 3.12.153.147:8083/petclinic:${BUILD_NUMBER} >&1 | tee demo.txt
 	    '''
 	}
-	} 
+	} */
     
     stage('Push Docker Image'){
 	steps{
 	    sh '''
-        docker login -u admin -p admin123 3.12.153.147:8083
+        docker login -u admin -p admin123 13.59.106.246:8083
         '''
-         sh 'docker push 3.12.153.147:8083/petclinic:${BUILD_NUMBER} >&1 | tee docker.txt'
+         sh 'docker push 13.59.106.246:8083/petclinic:${BUILD_NUMBER} >&1 | tee docker.txt'
      }
 	 }
      
@@ -103,7 +103,6 @@ sh "echo BlackDuckProject=Canada-Application >> variable.properties"
 sh "echo BlackDuckVersion=${env.BUILD_NUMBER} >> variable.properties"
 sh "echo ApplicationName=PetClinicDemoNexus >> variable.properties"
 sh "echo ApplicationProcess=DeployApplication >> variable.properties"
-sh "echo ImgName=3.128.135.88:8083/petclinic:1 >> variable.properties"
 
 
 
