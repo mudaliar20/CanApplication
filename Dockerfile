@@ -1,5 +1,2 @@
-FROM openjdk:alpine
-WORKDIR /tmp
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
-EXPOSE 8080
+FROM bitnami/nginx:latest
+COPY nginx.conf /opt/bitnami/nginx/conf/
